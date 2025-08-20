@@ -1,0 +1,7 @@
+{
+  "name": "Remember Me - Voice Reminders",
+  "description": "A smart reminder application that uses voice input to automatically create and organize your reminders. Just speak your mind, and the app will handle the rest, parsing dates, times, and descriptions for you.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
