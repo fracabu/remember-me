@@ -28,15 +28,19 @@ The app is a voice-to-reminder converter that uses Google's Gemini AI to process
 - **src/App.tsx**: Main application container managing global state (reminders, API key, processing status, error handling)
 - **src/components/Recorder.tsx**: Handles Web Speech API integration with extensive TypeScript definitions for speech recognition interfaces
 - **src/components/SettingsModal.tsx**: API key configuration (required for app functionality)
-- **src/components/ReminderList.tsx & ReminderCard.tsx**: Display and manage reminder items
+- **src/components/ReminderList.tsx & ReminderCard.tsx**: Display and manage reminder items with features like suggestions generation, re-recording, and calendar export
+- **src/components/SettingsSidebar.tsx**: Alternative API key configuration via sidebar when no environment key is available
+- **src/components/SuggestionsModal.tsx**: AI-powered task suggestions modal for productivity guidance
 - **src/services/geminiService.ts**: Gemini AI integration with structured response schema
 - **src/types/index.ts**: TypeScript type definitions for the application
 
 ### Technical Details
 
-- **Environment Variables**: Gemini API key is exposed to client via Vite config (`vite.config.ts` defines process.env variables)
+- **Environment Variables**: Gemini API key is exposed to client via Vite config (`vite.config.ts` defines process.env variables). Supports both `VITE_GEMINI_API_KEY` and `GEMINI_API_KEY` for compatibility
 - **Storage**: Reminders persist in localStorage under key `'remember-me-reminders'`
-- **AI Schema**: Uses structured JSON response schema to ensure consistent reminder format from Gemini
+- **AI Schema**: Uses structured JSON response schema to ensure consistent reminder format from Gemini with intelligent time parsing and relative date calculation
+- **Chat Integration**: Includes chat functionality via `sendChatMessage()` for conversational task assistance
+- **Re-recording Feature**: Supports updating existing reminders by integrating new voice input with existing content
 - **Error Handling**: Comprehensive error states for API failures, missing API key, and speech recognition issues
 - **Styling**: Uses Tailwind CSS classes with custom brand colors
 
@@ -47,3 +51,13 @@ The app is a voice-to-reminder converter that uses Google's Gemini AI to process
 3. Settings modal enforces API key requirement before allowing reminder creation
 
 The app is designed to work entirely in the browser with no backend server required.
+
+### API Integration Details
+
+- **Gemini AI Model**: Uses `gemini-2.5-flash` model for fast processing
+- **Multiple AI Functions**: 
+  - `processVoiceInput()`: Converts speech transcripts to structured reminders
+  - `generateTaskSuggestions()`: Creates productivity advice for specific tasks  
+  - `sendChatMessage()`: Enables conversational assistance about tasks
+- **Intelligent Time Handling**: Advanced time parsing with AM/PM inference and Italian locale support
+- **Update Mode**: Can integrate new voice input with existing reminder data rather than replacing it
