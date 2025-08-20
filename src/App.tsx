@@ -228,7 +228,7 @@ const App: React.FC = () => {
                 )}
               </div>
               
-              {!apiKey && !showSidebar && (
+              {!apiKey && !envApiKey && !showSidebar && (
                 <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
                   <p className="font-bold">Chiave API Richiesta</p>
                   <p>Per favore <button onClick={() => setIsSettingsOpen(true)} className="underline font-medium">imposta la tua chiave API Gemini</button> per iniziare a creare promemoria.</p>
@@ -262,9 +262,9 @@ const App: React.FC = () => {
         <p>Remember Me &copy; {new Date().getFullYear()}</p>
       </footer>
       
-      {/* Keep original modal for manual settings access */}
+      {/* Keep original modal for manual settings access - only when sidebar is not shown */}
       <SettingsModal 
-        isOpen={isSettingsOpen && !showSidebar} 
+        isOpen={isSettingsOpen && !showSidebar && !!envApiKey} 
         onClose={() => setIsSettingsOpen(false)} 
         onSave={handleSaveApiKey}
       />
