@@ -11,8 +11,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSettings }) => {
     <header className="bg-primary-500 dark:bg-slate-800 shadow-md transition-colors">
       <div className="container mx-auto max-w-2xl px-4 py-3 sm:py-4 flex items-center justify-between">
         <div className="flex items-center space-x-2 sm:space-x-3">
-            <BrainCircuitIcon className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight">
+            <BrainCircuitIcon className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-300" />
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-100 tracking-tight">
               <span className="hidden sm:inline">Remember Me</span>
               <span className="sm:hidden">Remember</span>
             </h1>

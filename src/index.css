@@ -44,6 +44,10 @@
 
 /* Custom base styles */
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
   html {
     font-family: theme(fontFamily.sans);
   }
@@ -51,6 +55,28 @@
   body {
     margin: 0;
     padding: 0;
+    line-height: 1.5;
+  }
+  
+  /* Ensure flex utilities work correctly */
+  .flex {
+    display: flex;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
+  .justify-between {
+    justify-content: space-between;
+  }
+  
+  .space-x-2 > * + * {
+    margin-left: 0.5rem;
+  }
+  
+  .space-x-3 > * + * {
+    margin-left: 0.75rem;
   }
 }
 

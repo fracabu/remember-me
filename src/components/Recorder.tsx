@@ -157,7 +157,7 @@ export const Recorder: React.FC<RecorderProps> = ({ onTranscript, isProcessing }
       icon: <MicIcon className="h-8 w-8 sm:h-10 sm:w-10" />,
       text: 'Tap to Speak',
       disabled: false,
-      className: 'bg-brand-secondary hover:bg-brand-primary',
+      className: 'bg-primary-500 hover:bg-primary-600',
     };
   };
 
@@ -169,7 +169,7 @@ export const Recorder: React.FC<RecorderProps> = ({ onTranscript, isProcessing }
         type="button"
         onClick={toggleListening}
         disabled={buttonState.disabled}
-        className={`flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 rounded-full text-white transition-all duration-300 ease-in-out shadow-lg focus:outline-none focus:ring-4 focus:ring-opacity-75 focus:ring-brand-secondary ${buttonState.className}`}
+        className={`flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 rounded-full text-white transition-all duration-300 ease-in-out shadow-lg focus:outline-none focus:ring-4 focus:ring-opacity-75 focus:ring-primary-500 ${buttonState.className}`}
         aria-label={buttonState.text}
       >
         {buttonState.icon}

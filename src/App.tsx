@@ -195,7 +195,7 @@ const App: React.FC = () => {
   const showSidebar = !apiKey && !envApiKey;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 font-sans text-gray-900 dark:text-gray-100 transition-colors">
+    <div className="min-h-screen bg-gray-200 dark:bg-slate-900 font-sans text-gray-900 dark:text-gray-100 transition-colors">
       <Header onOpenSettings={() => setIsSettingsOpen(true)} />
       
       <div className="flex flex-col lg:flex-row">
@@ -208,7 +208,7 @@ const App: React.FC = () => {
         {/* Main Content */}
         <div className={`flex-1 ${showSidebar ? 'lg:ml-0' : ''}`}>
           <main className={`mx-auto p-4 sm:p-6 lg:p-8 ${showSidebar ? 'max-w-4xl' : 'max-w-2xl'}`}>
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 transition-colors">
+            <div className="bg-gray-100 dark:bg-slate-800 rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 transition-colors">
               <div className="text-center">
                 <h2 className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
                   {reRecordingId ? 'Ri-registra il promemoria' : 'Cosa hai in mente?'}
