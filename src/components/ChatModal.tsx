@@ -89,25 +89,25 @@ export const ChatModal: React.FC<ChatModalProps> = ({
       aria-modal="true"
       role="dialog"
     >
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl h-[600px] flex flex-col overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-sm sm:max-w-2xl h-[70vh] sm:h-[600px] flex flex-col overflow-hidden transition-colors">
         {/* Header */}
-        <div className="bg-gradient-to-r from-brand-primary to-blue-600 p-4 text-white">
+        <div className="bg-gradient-to-r from-primary-500 to-primary-600 dark:from-primary-600 dark:to-primary-700 p-3 sm:p-4 text-white">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
+              <svg className="h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
-              <div>
-                <h2 className="text-lg font-bold">Chat Assistente</h2>
-                <p className="text-blue-100 text-sm">{taskTitle}</p>
+              <div className="min-w-0">
+                <h2 className="text-base sm:text-lg font-bold">Chat Assistente</h2>
+                <p className="text-primary-100 text-xs sm:text-sm truncate">{taskTitle}</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:text-blue-200 transition-colors p-2 rounded-full hover:bg-white/10"
+              className="text-white hover:text-blue-200 transition-colors p-1.5 sm:p-2 rounded-full hover:bg-white/10 flex-shrink-0"
               aria-label="Chiudi chat"
             >
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -115,13 +115,13 @@ export const ChatModal: React.FC<ChatModalProps> = ({
         </div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-slate-50 dark:bg-slate-900">
           {messages.length === 0 && (
-            <div className="text-center py-8">
-              <svg className="h-12 w-12 mx-auto text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-center py-6 sm:py-8">
+              <svg className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-slate-300 mb-2 sm:mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
-              <p className="text-slate-500 text-sm">
+              <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm px-4">
                 Inizia una conversazione! Chiedimi qualsiasi cosa riguardo a questo task.
               </p>
             </div>
@@ -133,17 +133,17 @@ export const ChatModal: React.FC<ChatModalProps> = ({
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] p-3 rounded-lg ${
+                className={`max-w-[85%] sm:max-w-[80%] p-2 sm:p-3 rounded-lg ${
                   message.role === 'user'
-                    ? 'bg-brand-primary text-white ml-4'
-                    : 'bg-white text-slate-800 mr-4 border border-slate-200'
+                    ? 'bg-primary-500 text-white ml-2 sm:ml-4'
+                    : 'bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 mr-2 sm:mr-4 border border-slate-200 dark:border-slate-600'
                 }`}
               >
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">
                   {message.content}
                 </p>
                 <p className={`text-xs mt-1 ${
-                  message.role === 'user' ? 'text-blue-100' : 'text-slate-400'
+                  message.role === 'user' ? 'text-primary-100' : 'text-slate-400 dark:text-slate-500'
                 }`}>
                   {new Date(message.timestamp).toLocaleTimeString('it-IT', { 
                     hour: '2-digit', 
@@ -156,10 +156,10 @@ export const ChatModal: React.FC<ChatModalProps> = ({
 
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-white text-slate-800 mr-4 border border-slate-200 p-3 rounded-lg">
+              <div className="bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 mr-4 border border-slate-200 dark:border-slate-600 p-3 rounded-lg">
                 <div className="flex items-center space-x-2">
-                  <LoaderIcon className="h-4 w-4 text-brand-primary animate-spin" />
-                  <span className="text-sm text-slate-500">L'assistente sta scrivendo...</span>
+                  <LoaderIcon className="h-4 w-4 text-primary-500 animate-spin" />
+                  <span className="text-sm text-slate-500 dark:text-slate-400">L'assistente sta scrivendo...</span>
                 </div>
               </div>
             </div>
@@ -169,8 +169,8 @@ export const ChatModal: React.FC<ChatModalProps> = ({
         </div>
 
         {/* Input Area */}
-        <div className="border-t border-slate-200 p-4 bg-white">
-          <form onSubmit={handleSendMessage} className="flex space-x-3">
+        <div className="border-t border-slate-200 dark:border-slate-600 p-3 sm:p-4 bg-white dark:bg-slate-800">
+          <form onSubmit={handleSendMessage} className="flex space-x-2 sm:space-x-3">
             <input
               ref={inputRef}
               type="text"
@@ -179,19 +179,19 @@ export const ChatModal: React.FC<ChatModalProps> = ({
               onKeyPress={handleKeyPress}
               placeholder="Scrivi un messaggio..."
               disabled={isLoading}
-              className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent disabled:bg-slate-100 disabled:text-slate-500"
+              className="flex-1 px-3 sm:px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:bg-slate-100 dark:disabled:bg-slate-700 disabled:text-slate-500 dark:disabled:text-slate-400 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 text-sm sm:text-base"
             />
             <button
               type="submit"
               disabled={!inputMessage.trim() || isLoading}
-              className="px-4 py-2 bg-brand-primary text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-3 sm:px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
               </svg>
             </button>
           </form>
-          <p className="text-xs text-slate-400 mt-2">
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 sm:mt-2 hidden sm:block">
             Premi Invio per inviare, Shift+Invio per andare a capo
           </p>
         </div>

@@ -130,8 +130,8 @@ export const Recorder: React.FC<RecorderProps> = ({ onTranscript, isProcessing }
 
   if (!isSpeechRecognitionSupported) {
     return (
-      <div className="text-center p-4 bg-yellow-100 border border-yellow-400 rounded-md text-yellow-800">
-        <p>Sorry, your browser doesn't support voice commands.</p>
+      <div className="text-center p-3 sm:p-4 bg-yellow-100 border border-yellow-400 rounded-md text-yellow-800">
+        <p className="text-sm sm:text-base">Sorry, your browser doesn't support voice commands.</p>
       </div>
     );
   }
@@ -139,7 +139,7 @@ export const Recorder: React.FC<RecorderProps> = ({ onTranscript, isProcessing }
   const getButtonState = () => {
     if (isProcessing) {
       return {
-        icon: <LoaderIcon className="h-10 w-10 animate-spin" />,
+        icon: <LoaderIcon className="h-8 w-8 sm:h-10 sm:w-10 animate-spin" />,
         text: 'Processing...',
         disabled: true,
         className: 'bg-gray-400 cursor-not-allowed',
@@ -147,14 +147,14 @@ export const Recorder: React.FC<RecorderProps> = ({ onTranscript, isProcessing }
     }
     if (isListening) {
       return {
-        icon: <StopCircleIcon className="h-10 w-10" />,
-        text: 'Listening... Click to Stop',
+        icon: <StopCircleIcon className="h-8 w-8 sm:h-10 sm:w-10" />,
+        text: 'Listening... Tap to Stop',
         disabled: false,
         className: 'bg-red-500 hover:bg-red-600',
       };
     }
     return {
-      icon: <MicIcon className="h-10 w-10" />,
+      icon: <MicIcon className="h-8 w-8 sm:h-10 sm:w-10" />,
       text: 'Tap to Speak',
       disabled: false,
       className: 'bg-brand-secondary hover:bg-brand-primary',
@@ -164,18 +164,18 @@ export const Recorder: React.FC<RecorderProps> = ({ onTranscript, isProcessing }
   const buttonState = getButtonState();
 
   return (
-    <div className="flex flex-col items-center space-y-4">
+    <div className="flex flex-col items-center space-y-3 sm:space-y-4">
       <button
         type="button"
         onClick={toggleListening}
         disabled={buttonState.disabled}
-        className={`flex items-center justify-center h-24 w-24 rounded-full text-white transition-all duration-300 ease-in-out shadow-lg focus:outline-none focus:ring-4 focus:ring-opacity-75 focus:ring-brand-secondary ${buttonState.className}`}
+        className={`flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 rounded-full text-white transition-all duration-300 ease-in-out shadow-lg focus:outline-none focus:ring-4 focus:ring-opacity-75 focus:ring-brand-secondary ${buttonState.className}`}
         aria-label={buttonState.text}
       >
         {buttonState.icon}
       </button>
-      <p className="text-slate-500 h-5">{buttonState.text}</p>
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+      <p className="text-slate-500 h-4 sm:h-5 text-sm sm:text-base text-center">{buttonState.text}</p>
+      {error && <p className="text-red-500 text-xs sm:text-sm mt-1 sm:mt-2 text-center px-4">{error}</p>}
     </div>
   );
 };

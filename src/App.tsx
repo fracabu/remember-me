@@ -194,10 +194,10 @@ const App: React.FC = () => {
   const showSidebar = !apiKey && !envApiKey;
 
   return (
-    <div className="min-h-screen bg-brand-light font-sans text-brand-dark">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 font-sans text-gray-900 dark:text-gray-100 transition-colors">
       <Header onOpenSettings={() => setIsSettingsOpen(true)} />
       
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
         {/* Settings Sidebar - only show if no API key */}
         <SettingsSidebar 
           isOpen={showSidebar}
@@ -205,14 +205,14 @@ const App: React.FC = () => {
         />
         
         {/* Main Content */}
-        <div className={`flex-1 ${showSidebar ? 'ml-0' : ''}`}>
-          <main className={`mx-auto p-4 md:p-8 ${showSidebar ? 'max-w-4xl' : 'max-w-2xl'}`}>
-            <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 space-y-6">
+        <div className={`flex-1 ${showSidebar ? 'lg:ml-0' : ''}`}>
+          <main className={`mx-auto p-4 sm:p-6 lg:p-8 ${showSidebar ? 'max-w-4xl' : 'max-w-2xl'}`}>
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 transition-colors">
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-brand-primary">
+                <h2 className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
                   {reRecordingId ? 'Ri-registra il promemoria' : 'Cosa hai in mente?'}
                 </h2>
-                <p className="text-slate-500 mt-1">
+                <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-1">
                   {reRecordingId 
                     ? 'Parla di nuovo per sostituire il contenuto del promemoria selezionato.'
                     : 'Premi il pulsante e inizia a parlare. Penso io al resto.'
@@ -258,7 +258,7 @@ const App: React.FC = () => {
         </div>
       </div>
       
-      <footer className="text-center p-4 text-slate-500 text-sm">
+      <footer className="text-center p-4 text-slate-500 dark:text-slate-400 text-sm">
         <p>Remember Me &copy; {new Date().getFullYear()}</p>
       </footer>
       
