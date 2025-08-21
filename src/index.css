@@ -40,6 +40,8 @@
   --font-family-sans: 'Inter', sans-serif;
 }
 
+@variant dark (.dark &);
+
 /* Custom base styles */
 @layer base {
   html {
