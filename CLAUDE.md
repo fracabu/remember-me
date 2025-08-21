@@ -4,60 +4,72 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
+- **Install dependencies**: `npm install`
 - **Start development server**: `npm run dev`
 - **Build for production**: `npm run build`
 - **Preview production build**: `npm run preview`
-- **Install dependencies**: `npm install`
+
+## Styling Setup
+
+The project uses **Tailwind CSS** with PostCSS:
+- Configuration in `tailwind.config.js` with custom color palette and dark mode support
+- Main CSS file at `src/index.css` with Tailwind directives and custom components
+- PostCSS configuration in `postcss.config.js`
+- **Important**: Uses proper Tailwind installation, not CDN (for production compatibility)
 
 ## Project Setup
 
-This is a React + TypeScript + Vite application that requires a Gemini API key to function. The API key must be set in `.env.local` as `GEMINI_API_KEY`.
+This is a React + TypeScript + Vite application that requires a Gemini API key to function. The API key can be configured via environment variables or runtime UI:
+
+- **Environment API Key**: Set `VITE_GEMINI_API_KEY` in `.env.local` (recommended for development)
+- **Runtime Configuration**: If no environment key exists, the app shows a sidebar for API key input
+- **API Key Security**: Keys are never stored persistently - only kept in memory during the session
 
 ## Architecture Overview
 
 ### Core Application Flow
-The app is a voice-to-reminder converter that uses Google's Gemini AI to process spoken input:
+Voice-to-reminder converter using Google's Gemini AI:
 
-1. **Voice Recording**: Uses Web Speech API (browser-native) to capture and transcribe speech
-2. **AI Processing**: Sends transcripts to Gemini AI via `processVoiceInput()` to extract structured reminder data (title, description, date, time)
-3. **Data Storage**: Stores reminders in localStorage with automatic persistence
-4. **State Management**: Uses React hooks for state, no external state management library
+1. **Voice Recording**: Web Speech API captures and transcribes speech in browser
+2. **AI Processing**: Gemini AI extracts structured data (title, description, date, time) via `processVoiceInput()`
+3. **Storage**: Reminders persist in localStorage under `'remember-me-reminders'` key
+4. **State Management**: React hooks with no external state management library
 
-### Key Components Architecture
+### Key Components & Services
 
-- **src/App.tsx**: Main application container managing global state (reminders, API key, processing status, error handling)
-- **src/components/Recorder.tsx**: Handles Web Speech API integration with extensive TypeScript definitions for speech recognition interfaces
-- **src/components/SettingsModal.tsx**: API key configuration (required for app functionality)
-- **src/components/ReminderList.tsx & ReminderCard.tsx**: Display and manage reminder items with features like suggestions generation, re-recording, and calendar export
-- **src/components/SettingsSidebar.tsx**: Alternative API key configuration via sidebar when no environment key is available
-- **src/components/SuggestionsModal.tsx**: AI-powered task suggestions modal for productivity guidance
-- **src/services/geminiService.ts**: Gemini AI integration with structured response schema
-- **src/types/index.ts**: TypeScript type definitions for the application
+- **src/App.tsx**: Main container with global state (reminders, API key, processing status, error handling). Handles API key validation and adaptive UI (shows sidebar if no environment key)
+- **src/components/Recorder.tsx**: Web Speech API integration with TypeScript definitions for speech recognition interfaces
+- **src/components/SettingsModal.tsx & SettingsSidebar.tsx**: Dual API key configuration - modal for environment keys, sidebar for runtime input
+- **src/components/ReminderList.tsx & ReminderCard.tsx**: Reminder display with time-based categorization, calendar export, re-recording, and AI features
+- **src/services/geminiService.ts**: Three main AI functions with structured schema:
+  - `processVoiceInput()`: Speech → structured reminders
+  - `generateTaskSuggestions()`: Task-specific productivity advice
+  - `sendChatMessage()`: Conversational task assistance
+- **src/utils/timeUtils.ts**: Time categorization logic (Oggi/Domani/Scaduto/etc.) with Italian localization
+- **src/contexts/ThemeContext.tsx**: Dark/light theme system with localStorage persistence and system preference detection
 
-### Technical Details
+### Advanced Features
 
-- **Environment Variables**: Gemini API key is exposed to client via Vite config (`vite.config.ts` defines process.env variables). Supports both `VITE_GEMINI_API_KEY` and `GEMINI_API_KEY` for compatibility
-- **Storage**: Reminders persist in localStorage under key `'remember-me-reminders'`
-- **AI Schema**: Uses structured JSON response schema to ensure consistent reminder format from Gemini with intelligent time parsing and relative date calculation
-- **Chat Integration**: Includes chat functionality via `sendChatMessage()` for conversational task assistance
-- **Re-recording Feature**: Supports updating existing reminders by integrating new voice input with existing content
-- **Error Handling**: Comprehensive error states for API failures, missing API key, and speech recognition issues
-- **Styling**: Uses Tailwind CSS classes with custom brand colors
+- **Re-recording Mode**: Updates existing reminders by integrating new voice input with existing content rather than replacing
+- **AI Chat Integration**: Per-reminder conversational assistance for planning and troubleshooting
+- **Smart Time Parsing**: Italian locale support with AM/PM inference, relative date calculation, and 24-hour format handling
+- **Theme System**: Dark/light modes with Tailwind CSS classes and automatic persistence
+- **Time Categorization**: Reminders grouped by urgency (urgent/soon/upcoming/past) with color coding
 
-### Data Flow
+### Technical Configuration
 
-1. User speaks → Web Speech API transcribes → Gemini processes transcript → Structured reminder data → Added to state → Persisted to localStorage
-2. App loads → Reads from localStorage → Populates reminder list
-3. Settings modal enforces API key requirement before allowing reminder creation
+- **Vite Config**: Standard Vite configuration with path aliases and PostCSS integration
+- **Tailwind Integration**: Proper Tailwind CSS installation with PostCSS, custom color palette with primary/secondary/accent colors and dark mode support
+- **ESM Imports**: Uses import maps for React 19 and Google GenAI from esm.sh CDN  
+- **TypeScript**: Comprehensive type definitions in `src/types/index.ts` with time-enhanced reminder interfaces
+- **CSS Architecture**: Custom component classes in `src/index.css` with Tailwind utilities
 
-The app is designed to work entirely in the browser with no backend server required.
+### AI Processing Details
 
-### API Integration Details
+- **Model**: Uses `gemini-2.5-flash` for fast processing
+- **Schema Validation**: Structured JSON responses with required fields (title, description, date, time)
+- **Italian Locale**: Time and date formatting using `it-IT` locale with timezone awareness
+- **Context Integration**: Chat and suggestions maintain context about specific reminders and user timezone
+- **Error Handling**: Comprehensive error states for API failures, empty responses, and JSON parsing issues
 
-- **Gemini AI Model**: Uses `gemini-2.5-flash` model for fast processing
-- **Multiple AI Functions**: 
-  - `processVoiceInput()`: Converts speech transcripts to structured reminders
-  - `generateTaskSuggestions()`: Creates productivity advice for specific tasks  
-  - `sendChatMessage()`: Enables conversational assistance about tasks
-- **Intelligent Time Handling**: Advanced time parsing with AM/PM inference and Italian locale support
-- **Update Mode**: Can integrate new voice input with existing reminder data rather than replacing it
+The application is client-side only with no backend server required.

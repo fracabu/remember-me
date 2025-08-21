@@ -29,7 +29,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
           Please enter your Google Gemini API key to use this application. The key is only stored for your current session.
         </p>
         
-        <div className="space-y-2">
+        <form id="apiKeyForm" onSubmit={(e) => { e.preventDefault(); handleSave(); }} className="space-y-2">
             <label htmlFor="apiKey" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Gemini API Key
             </label>
@@ -40,8 +40,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
               onChange={(e) => setApiKeyInput(e.target.value)}
               placeholder="Enter your API key"
               className="block w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
+              autoComplete="off"
             />
-        </div>
+        </form>
         
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
             Don't have a key? Get one from {' '}
@@ -64,8 +65,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
             Cancel
           </button>
           <button
-            type="button"
-            onClick={handleSave}
+            type="submit"
+            form="apiKeyForm"
             disabled={!apiKeyInput}
             className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-white bg-primary-500 border border-transparent rounded-md shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-slate-300 dark:disabled:bg-slate-600 disabled:cursor-not-allowed order-1 sm:order-2"
           >

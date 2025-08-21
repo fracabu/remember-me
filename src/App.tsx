@@ -14,7 +14,7 @@ const APP_STORAGE_KEY = 'remember-me-reminders';
 
 const App: React.FC = () => {
   // Check for API key from environment first - ensure it's not just defined but actually has a value
-  const rawEnvApiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+  const rawEnvApiKey = import.meta.env.VITE_GEMINI_API_KEY;
   const envApiKey = rawEnvApiKey && rawEnvApiKey.trim() !== '' ? rawEnvApiKey : null;
   
   const [reminders, setReminders] = useState<Reminder[]>(() => {

@@ -28,7 +28,7 @@ export const SettingsSidebar: React.FC<SettingsSidebarProps> = ({ isOpen, onSave
           </p>
         </div>
         
-        <div className="space-y-3 sm:space-y-4">
+        <form onSubmit={(e) => { e.preventDefault(); handleSave(); }} className="space-y-3 sm:space-y-4">
           <div>
             <label htmlFor="apiKey" className="block text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 mb-1 sm:mb-2">
               Gemini API Key
@@ -40,22 +40,18 @@ export const SettingsSidebar: React.FC<SettingsSidebarProps> = ({ isOpen, onSave
               onChange={(e) => setApiKeyInput(e.target.value)}
               placeholder="Inserisci la tua chiave API"
               className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs sm:text-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleSave();
-                }
-              }}
+              autoComplete="off"
             />
           </div>
           
           <button
-            onClick={handleSave}
+            type="submit"
             disabled={!apiKeyInput.trim()}
             className="w-full py-2 px-4 text-xs sm:text-sm font-medium text-white bg-primary-500 border border-transparent rounded-md shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-slate-300 dark:disabled:bg-slate-600 disabled:cursor-not-allowed transition-colors"
           >
             Conferma
           </button>
-        </div>
+        </form>
 
         <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
           <h3 className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Come ottenere la chiave API</h3>
